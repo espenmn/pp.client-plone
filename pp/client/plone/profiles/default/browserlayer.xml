@@ -1,0 +1,4 @@
+<layers>
+    <layer name="pp.client-plone"
+        interface="pp.client.plone.interfaces.IPloneClientConnectorLayer" />
+</layers>
