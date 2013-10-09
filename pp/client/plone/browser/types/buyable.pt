@@ -1,0 +1,15 @@
+<div class="type-dexterity-document content-body">
+    <img src="" alt=""  
+                      tal:condition="context/image|nothing"
+                      tal:define="scales context/@@images;
+                                  scale python:scales.scale('image', 'preview')"
+                      tal:replace="structure python:scale and scale.tag(css_class='ProductImage') or None" />      
+    <h1 tal:content="context/Title" />
+    <p class="documentDescription"  tal:content="context/Description" />
+    <div class="body"
+         tal:content="structure context/body/output" 
+         tal:condition="context/body" />
+    <div class="teknisk"
+         tal:content="structure context/teknisk_informasjon/output"  
+         tal:condition="context/teknisk_informasjon"/>
+</div>

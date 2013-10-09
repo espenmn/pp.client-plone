@@ -27,6 +27,10 @@
     <class class="Products.ATContentTypes.content.newsitem.ATNewsItem">
         <implements interface=".interfaces.IPPContent" />
     </class>
+    
+    <class class="bda.plone.shop.interfaces.IBuyable">
+        <implements interface=".interfaces.IPPContent" />
+    </class>
 
     <!-- default P&P resources -->
     <pp:resourceDirectory
