@@ -73,6 +73,14 @@
       permission="zope2.View"
       class=".types.image.HTMLView"
       />
+      
+    <browser:page
+      zcml:condition="installed plone.dexterity"
+      name="asHTML"
+      for="bda.plone.shop.interfaces.IBuyable"
+      permission="zope2.View"
+      class=".types.buyable.HTMLView"
+      />
 
     <browser:page
       name="asHTML"
