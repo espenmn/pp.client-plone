@@ -42,7 +42,7 @@ img {
     background: none repeat scroll 0 0 #FF0000;
     border-radius: 9px 9px 9px 9px;
     color: #FFFFFF;
-    font-family: 'Myriad Pro';
+    font-family: 'Arial';
     font-size: 36px;
     line-height: 50px;
     font-weight: Bold;
@@ -53,7 +53,7 @@ img {
     }
     
 p {
-   font-family:'Myriad Pro'
+   font-family:'Arial'
 }
 
 li strong, ul strong, b, strong {
@@ -98,7 +98,7 @@ li strong, ul strong, b, strong {
 
 .bmhbottom {
  border-radius: 9px 9px 9px 9px;
-    font-family: 'Myriad Pro';
+    font-family: 'Arial';
     padding: 4px 20px 4px 14px;
     width: 500px;
     text-align: center;
