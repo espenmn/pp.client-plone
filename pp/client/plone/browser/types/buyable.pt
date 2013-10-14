@@ -7,7 +7,8 @@
 <div class="red" tal:content="context/Title">Tittel</div>
     
    <img src="#" class="internal" internal-image="true" 
-            tal:attributes="src context/@@images/visningsbilde/mini" />
+            tal:attributes="src string:${context/absolute_url}/@@images/visningsbilde/mini" />
+            
     <div class="bmhbody">
         <h4 class="description" tal:content="context/Description"/>
        
