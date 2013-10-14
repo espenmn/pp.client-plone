@@ -40,7 +40,7 @@ img {
     background: none repeat scroll 0 0 #FF0000;
     border-radius: 9px 9px 9px 9px;
     color: #FFFFFF;
-    font-family: 'Arial';
+    font-family: "DejaVu Sans";
     font-size: 36px;
     line-height: 50px;
     font-weight: Bold;
@@ -51,16 +51,16 @@ img {
     }
     
 p {
-   font-family:'Arial'
+   font-family:"DejaVu Sans"
 }
 
 li strong, ul strong, b, strong {
     font-weight: bold;
-    font-family: Arial;
+    font-family: "DejaVu Sans";
 }
 
 .teknisk { 
-    font-family: Arial;
+    font-family: "DejaVu Sans";
 	margin-left: 14px;
 	height: 20px;
 	padding: 4px 7px;
@@ -72,7 +72,7 @@ li strong, ul strong, b, strong {
 }
 
 .bmhinfo { 
-    font-family: Arial;
+    font-family: "DejaVu Sans";
 	border: 1px solid #CCC;
 	padding: 2px 10px;
 	line-height: 130%;
@@ -89,7 +89,7 @@ li strong, ul strong, b, strong {
 
 .price {
     color: red;
-    font-family:'Arial';
+    font-family:'DejaVu Sans';
     font-weight: bold;
     font-size: 28px;
     text-align: right;  
@@ -112,7 +112,7 @@ li strong, ul strong, b, strong {
     text-align: center;
     width: 100px;
     font-weight: bold;
-    font-family: arial;
+    font-family: DejaVu Sans;
 }
 .internal { 
 width: 80%; 
@@ -125,12 +125,12 @@ height: auto; }
 }
 
 .bmhbottom p {
-    font-family: 'Arial';
+    font-family: 'DejaVu Sans';
     text-align: center; 
 }
 
 .bmhbottom {
-    font-family: 'Arial';
+    font-family: 'DejaVu Sans';
     padding: 4px 20px 4px 14px;
     width: 500px;
     text-align: center;
