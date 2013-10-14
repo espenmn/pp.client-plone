@@ -14,7 +14,3 @@ class IArchiveFolder(Interface):
     """ Marker interface for folder with archived content that will
         be ignored inside @@asHTML
     """
-
-class IPloneClientConnectorLayer(Interface):
-    """A brower layer specific to my product """
-   

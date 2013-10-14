@@ -18,7 +18,7 @@ from zope.pagetemplate.pagetemplatefile import PageTemplate
 
 from pp.client.plone.logger import LOG
 from pp.core.transformation import Transformer
-from pp.core.resources_registry import getResource
+from pp.core.resources_registry import resources_registry
 
 from util import getLanguageForObject
 
@@ -54,10 +54,9 @@ class ProducePublishView(BrowserView):
     @property
     def resource(self):
         resource_id = self.request.get('resource', DEFAULT_RESOURCE)
-        try:
-            return getResource(resource_id)
-        except KeyError:
+        if not resource_id in resources_registry:
             raise KeyError(u'No resource "{}" registered'.format(resource_id))
+        return resources_registry[resource_id]
 
     def copyResourceFiles(self, destdir):
         """ Copy over resources for a global or local resources directory into the 

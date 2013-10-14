@@ -1,11 +1,10 @@
+
 from ..compatible import InitializeClass
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 class HTMLView(BrowserView):
-    """ View for bda plone shop, buyable.
-        (testing how it works)
-    """
+    """ This view renders a HMTL fragment for the configured content type """
 
     template = ViewPageTemplateFile('buyable.pt')
 

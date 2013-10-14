@@ -1,18 +1,6 @@
 Changelog
 =========
 
-0.2.2 (unreleased)
-------------------
-- reorganized directory layout
-
-0.2.1 (06-10-2013)
-------------------
-- added browser layer
-
-
-0.2.0 (03-10-2013)
-------------------
-- updated documentation 
 
 0.1.9 (30-09-2013)
 ------------------
