@@ -124,6 +124,11 @@ height: auto; }
     page-break-before: always;
 }
 
+.bmhbottom p {
+    font-family: 'Arial';
+    text-align: center; 
+}
+
 .bmhbottom {
     font-family: 'Arial';
     padding: 4px 20px 4px 14px;
