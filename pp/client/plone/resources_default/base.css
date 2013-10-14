@@ -128,3 +128,8 @@ li strong, ul strong, b, strong {
 width: 80%; 
 margin: 0 10% ;
 height: auto; }
+
+.page-break	{ 
+    display: block; 
+    page-break-before: always;
+}
