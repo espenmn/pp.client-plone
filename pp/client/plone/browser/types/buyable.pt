@@ -6,26 +6,7 @@
 <div class="type-dexterity-document content-body">
 <div class="red" tal:content="context/Title">Tittel</div>
     
-    <img class="internal" internal-image="true" 
-         tal:define="item_object context/getObject; scales item_object/@@images;
-                                 scale python:scales.scale('visningsbilde', 'spalte')"
-                                 alt=""  
-                                 tal:replace="structure python:scale and scale.tag(css_class='ProductImage') or None" />
-    <div class="bmhbody">
-        <h4 class="description" tal:content="context/Description"/>
-       
-        <div tal:replace="structure context/aq_inner/aq_parent/body/output" />
-    </div>
-    <div class="price" 
-           tal:define="item_sum python:float(context.item_net) * (100+int(context.item_vat))/100">
-           <span>kr. </span><span tal:content="python:'%0.0f' %  item_sum"></span><span>,-</span>
-        </div>
-        
-    <span class="teknisk">Teknisk Info</span>
-    <div class="bmhinfo" tal:content="structure context/aq_inner/aq_parent/teknisk_informasjon/output" />
-    <div class="bmhbottom">
-        <p><b>BMH AS</b>, Chr. Michelsensgt. 6a , 5012 Bergen, Tlf. 55 54 45 80, e-post: bmh@bmh.no</p>
-    </div>
+
     <img class="logoimage" internal-image="true" src="http://www.bmh.no/logo_medialog.png" />
     <span class="bmh_url">www.bmh.no</span>
 </div>
