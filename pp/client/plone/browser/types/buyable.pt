@@ -7,10 +7,9 @@
 <div class="red" tal:content="context/Title">Tittel</div>
     
     <img class="internal" internal-image="true" 
-         tal:define="item_object context/getObject; scales item_object/@@images;
-                                 scale python:scales.scale('visningsbilde', 'spalte')"
-                                 alt=""  
-                                 tal:replace="structure python:scale and scale.tag(css_class='ProductImage') or None" />
+         tal:define="scales context/@@images;
+         scale python:scales.scale('visningsbilde', 'spalte')"
+         tal:replace="structure python:scale and scale.tag(css_class='ProductImage') or None" />
     <div class="bmhbody">
         <h4 class="description" tal:content="context/Description"/>
        
