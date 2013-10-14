@@ -2,7 +2,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
     
-<div class="type-dexterity-document content-body">
+<div class="type-shop-document content-body">
 <div class="red" tal:content="context/Title">Tittel</div>
     
    <img src="#" class="internal" internal-image="true" 
