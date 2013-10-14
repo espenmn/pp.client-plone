@@ -6,10 +6,8 @@
 <div class="type-dexterity-document content-body">
 <div class="red" tal:content="context/Title">Tittel</div>
     
-    <img class="internal" internal-image="true" 
-         tal:define="scales context/@@images;
-         scale python:scales.scale('visningsbilde', 'spalte')"
-         tal:content="structure python:scale and scale.tag(css_class='ProductImage') or None" />
+   <img src="#" class="internal" internal-image="true" 
+            tal:replace="structure  context/@@images/visningsbilde/mini" />
     <div class="bmhbody">
         <h4 class="description" tal:content="context/Description"/>
        
