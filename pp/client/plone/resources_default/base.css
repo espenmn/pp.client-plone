@@ -128,7 +128,7 @@ li strong, ul strong, b, strong {
 }
 .internal { 
     width: auto; 
-    margin: 0 10%;
+    margin: 0;
     height: auto; 
     max-height: 420px;
 }
