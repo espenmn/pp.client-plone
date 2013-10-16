@@ -31,9 +31,6 @@
     <img src="#" class="qrimage" internal-image="true" 
             tal:attributes="src string:${context/absolute_url}/qrcode" />
     </div>
-        <div class="bmhimage" tal:define="style_url string:${context/absolute_url}/@@images/visningsbilde;
-                         style python:'background-image:url(' + style_url + ')'"
-            tal:attributes="style style" />
     
 
 </div>
