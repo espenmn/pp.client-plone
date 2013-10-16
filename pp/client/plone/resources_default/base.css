@@ -1,4 +1,4 @@
-import url("fonts.css");
+mport url("fonts.css");
 
 body {
     font-size: 11px;
@@ -116,13 +116,13 @@ li strong, ul strong, b, strong {
     font-family: arial;
 }
 .internal { 
-width: auto; 
-margin: 0 auto ;
-height: 400px;}
+width: 80%; 
+margin: 0 10% ;
+height: auto; }
 
 .qrimage { 
 width: 80px; 
-margin: 20px 0;
+margin: 20px;
 height: 80px; }
 
 .page-break        { 
