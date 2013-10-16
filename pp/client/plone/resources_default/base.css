@@ -55,6 +55,7 @@ p {
    font-size: 11px;
 }
 
+.teknisk p,
 .bmhbody p { 
    padding: 0;
    margin: 0;
