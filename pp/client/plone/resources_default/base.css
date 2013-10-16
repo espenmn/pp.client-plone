@@ -120,6 +120,11 @@ width: 80%;
 margin: 0 10% ;
 height: auto; }
 
+.qrimage { 
+width: 80px; 
+margin: 0 10% ;
+height: 80px; }
+
 .page-break        { 
     display: block; 
     page-break-before: always;
