@@ -26,6 +26,9 @@
     <div class="page-break"></div>
 
     <span class="teknisk">Teknisk Info</span>
-    <div class="bmhinfo" tal:content="structure context/aq_inner/aq_parent/teknisk_informasjon/output" />
-
+    <div class="bmhinfo">
+    <div tal:replace="structure context/aq_inner/aq_parent/teknisk_informasjon/output" />
+    <img src="#" class="internal" internal-image="true" 
+            tal:attributes="src string:${context/absolute_url}/qrcode" />
+    </div>
 </div>
