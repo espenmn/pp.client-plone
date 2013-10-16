@@ -122,7 +122,7 @@ height: auto; }
 
 .page-break        { 
     display: block; 
-    page-break-before: always;
+    xpage-break-before: always;
 }
 
 .bmhbottom {
