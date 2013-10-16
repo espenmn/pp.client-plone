@@ -18,7 +18,7 @@
            <span>kr. </span><span tal:content="python:'%0.0f' %  item_sum"></span><span>,-</span>
         </div>  
     <div class="bmhbottom">
-        <p><b>BMH AS</b>, Chr. Michelsensgt. 6a , 5012 Bergen, Tlf. 55 54 45 80, e-post: bmh@bmh.no</p>
+        <b>BMH AS</b>, Chr. Michelsensgt. 6a , 5012 Bergen, Tlf. 55 54 45 80, e-post: bmh@bmh.no
     </div>
     <img class="logoimage" alt="BMH logo" internal-image="true" src="http://www.bmh.no/bilder/logo_medialog.png" />
     <span class="bmh_url">www.bmh.no</span>
