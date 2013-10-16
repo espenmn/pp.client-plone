@@ -58,6 +58,7 @@ p {
 .bmhbody p { 
    padding: 0;
    margin: 0;
+   line-height: 15px;
 }
 
 li strong, ul strong, b, strong {
