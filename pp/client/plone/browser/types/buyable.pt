@@ -28,7 +28,7 @@
     <span class="teknisk">Teknisk Info</span>
     <div class="bmhinfo">
     <div tal:replace="structure context/aq_inner/aq_parent/teknisk_informasjon/output" />
+    </div>
     <img src="#" class="qrimage" internal-image="true" 
             tal:attributes="src string:${context/absolute_url}/qrcode" />
-    </div>
 </div>
