@@ -108,7 +108,7 @@ li strong, ul strong, b, strong {
 
 .bmh_url {
     position: absolute;
-    top: 847px;
+    top: 947px;
     right: 10px;
     text-align: center;
     width: 100px;
@@ -128,7 +128,7 @@ height: auto; }
 .bmhbottom {
     font-family: 'Ubuntu';
     font-size: 8pt;
-    padding: 4px 20px 4px 14px;
+    padding: 6px 20px 5px 14px;
     width: 500px;
     text-align: center;
     position: absolute;
