@@ -1,8 +1,8 @@
 import url("fonts.css");
 
 body {
-    font-size: 12px;
-    font-family: "DejaVu Sans";
+    font-size: 11px;
+    font-family: "Ubuntu";
 }
 
 h1 {
@@ -40,10 +40,10 @@ img {
     background: none repeat scroll 0 0 #FF0000;
     border-radius: 9px 9px 9px 9px;
     color: #FFFFFF;
-    font-family: 'Arial';
+    font-family: 'Ubuntu';
     font-size: 36px;
     line-height: 50px;
-    font-weight: Bold;
+    font-weight: light;
     margin: 25px 0;
     padding: 10px 20px 3px;
     text-align: center;
@@ -51,12 +51,13 @@ img {
     }
     
 p {
-   font-family:'Arial'
+   font-family:'Ubuntu';
+   font-size: 11px;
 }
 
 li strong, ul strong, b, strong {
     font-weight: bold;
-    font-family: Arial;
+    font-family: Ubuntu;
 }
 
 .teknisk { 
@@ -69,10 +70,11 @@ li strong, ul strong, b, strong {
         line-height: 10px;
         font-weight: bold;
         color: white;
+        line-height: 15px;
 }
 
 .bmhinfo { 
-    font-family: Arial;
+        font-family: Arial;
         border: 1px solid #CCC;
         padding: 2px 10px;
         line-height: 130%;
@@ -96,7 +98,6 @@ li strong, ul strong, b, strong {
 }
 
 
-    
 .logoimage {
     position: absolute;
     bottom: 107px;
@@ -125,8 +126,8 @@ height: auto; }
 }
 
 .bmhbottom {
-    font-family: 'Arial';
-    font-size: 8px;
+    font-family: 'Ubuntu';
+    font-size: 8pt;
     padding: 4px 20px 4px 14px;
     width: 500px;
     text-align: center;
@@ -134,4 +135,10 @@ height: auto; }
     bottom: 72px;
     border-radius: 9px 9px 9px 9px;
     box-shadow: 0px 1px 12px rgba(0,0,0,0.6);  
+}
+
+.bmhbottom p {
+    font-family: 'Ubuntu';
+    font-size: 8pt;
+    line-height: 11pt; 
 }
