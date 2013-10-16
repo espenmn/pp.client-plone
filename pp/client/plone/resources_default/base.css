@@ -157,3 +157,12 @@ height: 80px; }
     font-size: 8pt;
     line-height: 12pt; 
 }
+
+.ost {
+ border: 1px solid black;
+ width: 550px;
+ height: 450px;
+ background-repeat: none;
+ background-position: center center;
+}
+}
