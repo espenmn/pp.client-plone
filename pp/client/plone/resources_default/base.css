@@ -99,7 +99,7 @@ li strong, ul strong, b, strong {
     
 .logoimage {
     position: absolute;
-    bottom: 67px;
+    bottom: 107px;
     right: 10px;
     height: 56px;
     width: 100px;
@@ -107,7 +107,7 @@ li strong, ul strong, b, strong {
 
 .bmh_url {
     position: absolute;
-    bottom: 107px;
+    bottom: 117px;
     right: 10px;
     text-align: center;
     width: 100px;
@@ -126,6 +126,7 @@ height: auto; }
 
 .bmhbottom {
     font-family: 'Arial';
+    font-size: 8px;
     padding: 4px 20px 4px 14px;
     width: 500px;
     text-align: center;
