@@ -124,16 +124,16 @@ li strong, ul strong, b, strong {
     font-family: arial;
 }
 .internal { 
-width: 80%; 
-margin: 0 10%;
-height: auto; 
-max-height: 450px;
+    width: 80%; 
+    margin: 0 10%;
+    height: auto; 
+    max-height: 40px;
 }
 
 .qrimage { 
-width: 80px; 
-margin: 20px;
-height: 80px; }
+    width: 80px; 
+    margin: 20px;
+    height: 80px; }
 
 .page-break        { 
     display: block; 
@@ -159,10 +159,11 @@ height: 80px; }
 }
 
 .bmhimage {
- width: 100%;
- height: 450px;
- background-repeat: no-repeat;
- background-position: center center;
- background-size: auto 450px;
+    margin-top: 10px;
+    width: 100%;
+    height: 450px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 450px;
 }
 
