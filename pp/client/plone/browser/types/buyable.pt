@@ -4,7 +4,7 @@
     
 <div class="type-shop-document content-body">
 <div class="red" tal:content="context/Title">Tittel</div>
-   <div>
+   <div width="550">
        <img src="#" class="internal" internal-image="true" 
             tal:attributes="src string:${context/absolute_url}/@@images/visningsbilde" />
     </div>    
