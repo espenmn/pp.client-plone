@@ -123,11 +123,14 @@ li strong, ul strong, b, strong {
     font-weight: bold;
     font-family: arial;
 }
+.imagepart {
+    text-align: center;
+}
 .internal { 
-    width: 80%; 
+    width: auto; 
     margin: 0 10%;
     height: auto; 
-    max-height: 40px;
+    max-height: 420px;
 }
 
 .qrimage { 
