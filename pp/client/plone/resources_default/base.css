@@ -118,7 +118,8 @@ li strong, ul strong, b, strong {
 .internal { 
 width: 80%; 
 margin: 0 10% ;
-height: auto; }
+height: auto; 
+max-height: 400px;}
 
 .qrimage { 
 width: 80px; 
