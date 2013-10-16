@@ -116,10 +116,9 @@ li strong, ul strong, b, strong {
     font-family: arial;
 }
 .internal { 
-width: 80%; 
-margin: 0 10% ;
-height: auto; 
-max-height: 400px;}
+width: auto; 
+margin: 0 auto ;
+height: 400px;}
 
 .qrimage { 
 width: 80px; 
