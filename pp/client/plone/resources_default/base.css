@@ -1,9 +1,4 @@
-@import url("fonts.css");
-
-body, html {
- margin:  0 !important;
- padding:  0 !important;	
-}
+import url("fonts.css");
 
 body {
     font-size: 12px;
@@ -45,7 +40,7 @@ img {
     background: none repeat scroll 0 0 #FF0000;
     border-radius: 9px 9px 9px 9px;
     color: #FFFFFF;
-    font-family: "DejaVu Sans";
+    font-family: 'Arial';
     font-size: 36px;
     line-height: 50px;
     font-weight: Bold;
@@ -56,50 +51,52 @@ img {
     }
     
 p {
-   font-family:"DejaVu Sans"
+   font-family:'Arial'
 }
 
 li strong, ul strong, b, strong {
     font-weight: bold;
-    font-family: "DejaVu Sans";
+    font-family: Arial;
 }
 
 .teknisk { 
-    font-family: "DejaVu Sans";
-	margin-left: 14px;
-	height: 20px;
-	padding: 4px 7px;
-	background: #AAA;
-	font-size: 9px;
-	line-height: 10px;
-	font-weight: bold;
-	color: white;
+    font-family: Arial;
+        margin-left: 14px;
+        height: 20px;
+        padding: 4px 7px;
+        background: #AAA;
+        font-size: 9px;
+        line-height: 10px;
+        font-weight: bold;
+        color: white;
 }
 
 .bmhinfo { 
-    font-family: "DejaVu Sans";
-	border: 1px solid #CCC;
-	padding: 2px 10px;
-	line-height: 130%;
-	clear: both;
-	margin-top: 3px; 
-	font-size: 90%;
-	
+    font-family: Arial;
+        border: 1px solid #CCC;
+        padding: 2px 10px;
+        line-height: 130%;
+        clear: both;
+        margin-top: 3px; 
+        font-size: 90%;
+        
 }
 .bmhbody { 
-	background: #EEE;
-	padding: 12px 30px;
-	margin-bottom: 4px;
+        background: #EEE;
+        padding: 12px 30px;
+        margin-bottom: 4px;
 }
 
 .price {
     color: red;
-    font-family:"DejaVu Sans";
+    font-family:'Arial';
     font-weight: bold;
     font-size: 28px;
     text-align: right;  
 }
 
+
+    
 .logoimage {
     position: absolute;
     bottom: 7px;
@@ -115,25 +112,20 @@ li strong, ul strong, b, strong {
     text-align: center;
     width: 100px;
     font-weight: bold;
-    font-family: DejaVu Sans;
+    font-family: arial;
 }
 .internal { 
 width: 80%; 
 margin: 0 10% ;
 height: auto; }
 
-.page-break	{ 
+.page-break        { 
     display: block; 
     page-break-before: always;
 }
 
-.bmhbottom p {
-    font-family: "DejaVu Sans";
-    text-align: center; 
-}
-
 .bmhbottom {
-    font-family: "DejaVu Sans";
+    font-family: 'Arial';
     padding: 4px 20px 4px 14px;
     width: 500px;
     text-align: center;
