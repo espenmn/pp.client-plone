@@ -25,7 +25,7 @@ from util import getLanguageForObject
 cwd = os.path.dirname(os.path.abspath(__file__))
 
 # server host/port of the SmartPrintNG server
-DEFAULT_CONVERTER = os.environ.get('PP_CONVERTER', 'princexml')
+DEFAULT_CONVERTER = os.environ.get('PP_CONVERTER', 'phantomjs')
 DEFAULT_RESOURCE = os.environ.get('PP_RESOURCE', 'pp-default')
 SERVER_URL = os.environ.get('PP_SERVER_URL', 'http://localhost:6543')
 ZIP_OUTPUT = 'PP_ZIP_OUTPUT' in os.environ
