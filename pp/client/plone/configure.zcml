@@ -29,6 +29,10 @@
         <implements interface=".interfaces.IPPContent" />
     </class>
     
+    <class class="bda.plone.orders.interfaces.IOrdersExtensionLayer">
+        <implements interface=".interfaces.IPPContent" />
+    </class>
+    
     
     <!-- default P&P resources -->
     <pp:resourceDirectory

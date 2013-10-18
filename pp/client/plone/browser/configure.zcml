@@ -45,6 +45,13 @@
       />
 
     <browser:page
+      name="asHTML"
+      for="bda.plone.orders.interfaces.IOrdersExtensionLayer"
+      permission="zope2.View"
+      class=".types.order.HTMLView"
+      />
+
+    <browser:page
       zcml:condition="installed plone.dexterity"
       name="asHTML"
       for="plone.dexterity.interfaces.IDexterityContainer"
