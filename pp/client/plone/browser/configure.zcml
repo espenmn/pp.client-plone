@@ -43,10 +43,11 @@
       permission="zope2.View"
       class=".types.buyable.HTMLView"
       />
+      
 
     <browser:page
       name="asHTML"
-      for="bda.plone.orders.interfaces.IOrdersExtensionLayer"
+      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
       permission="zope2.View"
       class=".types.order.HTMLView"
       />
@@ -95,6 +96,7 @@
       class=".types.glossary.GlossaryHTMLView"
       />
 
+      
     <!-- a generic Dexterity view catching all Dexterity
          content since TTW-generated Dexterity content
          don't have specific interfaces.
@@ -107,6 +109,9 @@
       permission="zope2.View"
       class=".types.dexterity.DexterityGenericView"
       />
+      
+      
+      
 
     <browser:page
       name="asPDF"

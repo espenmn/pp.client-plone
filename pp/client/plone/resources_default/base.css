@@ -125,7 +125,11 @@ li strong, ul strong, b, strong {
 }
 .imagepart {
     text-align: center;
-}
+    max-width: 100%;
+    display: block;
+    overflow: hidden;
+  }
+    
 .internal { 
     width: auto; 
     margin: 0;
@@ -170,3 +174,131 @@ li strong, ul strong, b, strong {
     background-size: auto 450px;
 }
 
+
+/* styles for invoice */
+
+
+
+.ivoice p {
+	margin: 0;
+	padding: 0;
+	font-family: Baskerville, Georgia, Garamond, Times, serif;
+    font-size: 9pt !important;
+}
+
+
+div.sender {
+	position:  absolute;
+	top: 23px;
+	left: 380px;
+	font-size: 80%;
+
+}
+
+div.invoice_personal_row {
+	position: absolute;
+	top: 130px;
+	left: 62px;
+    width: 500px;
+}
+
+div.invoice_details_row  {
+	position:  absolute;
+	top: 160px;
+	left: 380px;
+	font-size: 80%;
+}
+
+
+div.sender_bottom {
+	position:  absolute;
+	top: 808px;
+	left: 390px;
+}
+
+div.invoice_details_row_bottom {
+	position:  absolute;
+	top: 808px;
+	left: 72px;
+}
+
+
+div.ordrenummer {
+    position:  absolute;
+	top: 738px;
+	left: 72px;
+	font-size: 80%;
+}
+
+div.totalsum {
+	position:  absolute;
+	top: 935px;
+	left: 290px;
+}
+
+div.kontonr {
+	position:  absolute;
+	top: 935px;
+	left: 454px;
+}
+
+
+div.order_summary {
+	position:  absolute;
+	top: 292px;
+	left: 60px;
+	font-size: 80%;
+        min-width: 500px;
+               border-top: 1px solid #DDD;
+padding-top: 10px;
+}
+
+div.order_bookings {
+	position:  absolute;
+	top: 427px;
+	left: 60px;
+	font-size: 80%;
+}
+
+
+
+.order_details {
+	clear: both;
+    padding:1.2em;
+}
+.order_details_row {
+    display:table-row;
+}
+.order_details_row div {
+    display:table-cell;
+    width:380px;
+    padding:0.4em;
+}
+.order_bookings {
+    padding:0 0.4em 0.4em 0.4em;
+}
+.order_bookings h3 {
+    margin-top:0.8em;
+    margin-bottom:0.3em;
+}
+.order_bookings table {
+    width:100%;
+    border:#ddd 1px solid;
+    border-spacing:0;
+    border-collapse:collapse;
+}
+.order_bookings table th {
+    padding:5px 3px 5px 1em;
+    text-align:left;
+    background-color:#fafafa;
+    border-right:#ddd 1px solid;
+    border-bottom:#ddd 1px solid;
+    font-weight:bold;
+}
+.order_bookings table td {
+    padding:5px 3px 5px 1em;
+    border-right:#ddd 1px solid;
+}
+.order_bookings tr.odd td {
+    background-color:#fbfbfb;
+}
