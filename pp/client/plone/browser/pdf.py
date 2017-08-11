@@ -182,14 +182,14 @@ class ProducePublishView(BrowserView):
         resource_id = self.request.get('resource', 'pp-default')
         resource_url = self.request.get('resource_url')
 
-        cmdoptions = self.request.get('cmd_options', None)
+        cmdoptions = self.request.get('cmd_options', '')
 
         #import pdb; pdb.set_trace()
 
         cover = self.request.get('cover', '')
 
         if cover:
-            cmdoptions += " --cover=%s" % cover
+            cmdoptions += " --remove-first-image --cover=%s" % cover
 
         if resource_url:
             self.copyResourceFromURL(resource_url, destdir)
