@@ -186,7 +186,7 @@ class ProducePublishView(BrowserView):
 
         #import pdb; pdb.set_trace()
 
-        cover = self.request.get('cover', None)
+        cover = self.request.get('cover', '')
 
         if cover:
             cmdoptions += " --cover=%s" % cover
