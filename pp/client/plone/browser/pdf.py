@@ -41,6 +41,10 @@ class ProducePublishView(BrowserView):
     # If you don't need any transformation -> redefine 'transformations'
     # as empty list or tuple
 
+    # Table of contents is not working with phantomjs or epub, so
+    # we leave it off.
+
+
     transformations = (
         'makeImagesLocal',
         'convertFootnotes',
@@ -140,6 +144,7 @@ class ProducePublishView(BrowserView):
             'template' - the name of a custom template name within the choosen
                          'resource'
             'supplementary_css' - a CSS string injected into the template
+            'cover' - Url to an image to be used as cover
         """
 
         # Output directory
@@ -175,6 +180,12 @@ class ProducePublishView(BrowserView):
 
         resource_id = self.request.get('resource', 'pp-default')
         resource_url = self.request.get('resource_url')
+
+        cover = self.request.get('cover', None)
+
+        cmdoptions=''
+        if cover:
+            cmdoptions = "--cover=%s" % cover
 
         if resource_url:
             self.copyResourceFromURL(resource_url, destdir)
@@ -239,7 +250,9 @@ class ProducePublishView(BrowserView):
         server_url = str(r)
 
         from pp.client.python import pdf
-        result = pdf.pdf(destdir, converter, server_url=server_url, ssl_cert_verification=True)
+
+        #result = pdf.pdf(destdir, converter, server_url=server_url, ssl_cert_verification=True, cover=cover)
+        result = pdf.pdf(destdir, converter, server_url=server_url, ssl_cert_verification=True, cmd_options=cmdoptions)
         if result['status']  == 'OK':
             output_filename = result['output_filename']
             LOG.info('Output file: %s' % output_filename)
@@ -266,4 +279,3 @@ class PDFDownloadView(ProducePublishView):
         return filestream_iterator(output_file, 'rb').read()
 
 InitializeClass(PDFDownloadView)
-
