@@ -19,18 +19,17 @@ from Products.CMFCore.utils import getToolByName
 url_match = re.compile(r'^(http|https|ftp)://')
 ALL_HEADINGS = ('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'h8', 'h9', 'h10')
 
+
 def xpath_query(node_names):
     if not isinstance(node_names, (list, tuple)):
         raise TypeError('"node_names" must be a list or tuple (not %s)' % type(node_names))
     return './/*[%s]' % ' or '.join(['name()="%s"' % name for name in node_names])
 
+
 @registerTransformation
-def makeImagesLocal(root, params, errors):
+def makeImagesLocal(root, **params):
     """ deal with internal and external image references """
-
-    ref_catalog = getToolByName(params['context'], 'reference_catalog')
     destdir = params['destdir']
-
     images_seen = dict()
     for img in root.xpath(xpath_query(['img'])):
 
@@ -46,7 +45,7 @@ def makeImagesLocal(root, params, errors):
 
         if img_obj is None:
             LOG.error('Image {} count not be resolved'.format(src))
-            errors.append(u'Image missing ({})'.format(src))
+            # errors.append(u'Image missing ({})'.format(src))
             # replace <img> with error <div>
             div = lxml.html.Element('div')
             div.attrib['class'] = 'missing-image'
@@ -57,19 +56,21 @@ def makeImagesLocal(root, params, errors):
         # resolved did find a local image
         LOG.info('  Local processing: %s' % src)
         current= images_seen.get(src)
-
         if not current:
 
-            # assume that this is the primary image object in Plone
-            img_data = str(img_obj.data)
+            if str(img_obj.__class__) == "<class 'plone.app.contenttypes.content.Image'>":
+                img_data = img_obj.image.open().read()
+            else:
+                # assume that this is the primary image object in Plone
+                img_data = str(img_obj.data)
 
             # determine graphic format using PIL
             pil_image = PIL.Image.open(StringIO(img_data))
-            format = pil_image.format.lower()
+            img_format = pil_image.format.lower()
             width, height = pil_image.size
 
             # generate unique and speaking image names
-            img_id = '{}.{}'.format(img_obj.getId(), format) 
+            img_id = '{}.{}'.format(img_obj.getId(), img_format)
             dest_img_name = os.path.join(destdir, img_id)
             with open(dest_img_name, 'wb') as fp:
                 fp.write(img_data)
@@ -77,16 +78,16 @@ def makeImagesLocal(root, params, errors):
             images_seen[src] = current = dict(width=width,
                                               height=height,
                                               id=img_id,
-                                              format=format,
+                                              format=img_format,
                                               filename=dest_img_name)
 
-        try:                
+        try:
             img_title = img_obj.Title()
         except AttributeError:
             img_title = u''
         if not isinstance(img_title, unicode):
             img_title = unicode(img_title, 'utf-8')
-        try:                
+        try:
             img_description = img_obj.Description()
         except AttributeError:
             img_description = u''
@@ -95,23 +96,22 @@ def makeImagesLocal(root, params, errors):
 
         # now move <img> tag into a dedicated <div>
         figure = lxml.html.Element('figure')
-        new_img =  lxml.html.Element('img')
+        new_img = lxml.html.Element('img')
         # preserve original attributes
         new_img.attrib.update(img.attrib.items())
-        new_img.attrib['src'] = img_id
+        new_img.attrib['src'] = current['id']
         new_img.attrib['format'] = current['format']
         new_img.attrib['height'] = str(current['height'])
         new_img.attrib['width'] = str(current['width'])
         new_img.attrib['description'] = img_description
 
         figure.append(new_img)
-        figcaption =  lxml.html.Element('figcaption')
+        figcaption = lxml.html.Element('figcaption')
         figcaption.attrib['title'] = img_title
         figcaption.text = img_description
         figure.append(figcaption)
         img.getparent().replace(img, figure)
 
-url_match = re.compile(r'^(http|https|ftp)://')
 
 @registerTransformation
 def convertFootnotes(root):
@@ -187,13 +187,13 @@ def addTableOfContents(root):
     for count, e in enumerate(root.xpath(xpath_query(ALL_HEADINGS))):
         level = int(e.tag[-1]) - 1 # in Plone everything starts with H2
         text = e.text_content()
-        id = 'toc-%d' % count
+        toc_id = 'toc-%d' % count
         new_anchor = lxml.html.Element('a')
-        new_anchor.attrib['name'] = id
+        new_anchor.attrib['name'] = toc_id
         e.insert(0, new_anchor)
         toc.append(dict(text=text,
                         level=level,
-                        id=id))
+                        id=toc_id))
 
     div_toc = lxml.html.Element('div')
     div_toc.attrib['id'] = 'toc'
@@ -212,7 +212,7 @@ def addTableOfContents(root):
         li.append(a)
         div_ul.append(li)
 
-    # check for an existing TOC (div#toc) 
+    # check for an existing TOC (div#toc)
     nodes = CSSSelector('div#toc')(root)
     if nodes:
         # replace it with the generated TOC
@@ -234,7 +234,7 @@ def adjustHeadingsFromAggregatedHTML(root):
 
     # search all documents first
     selector = CSSSelector('div.portal-type-authoringcontentpage')
-    for node in selector(root):    
+    for node in selector(root):
         # get their level
         level = int(node.get('level'))
 
@@ -249,6 +249,12 @@ def adjustHeadingsFromAggregatedHTML(root):
         # now add an offset to the heading level
         for heading in node.xpath(xpath_query(ALL_HEADINGS)):
             heading_level = int(heading.tag[1:])
-            new_level = level + heading_levels_used.index(heading_level) 
+            new_level = level + heading_levels_used.index(heading_level)
             heading.tag = 'h%d' % new_level
 
+@registerTransformation
+def shiftHeadings(root):
+    """ H1 -> H2, H2 -> H3.... """
+    for node in root.xpath(xpath_query(ALL_HEADINGS)):
+        level = int(node.tag[1:])
+        node.tag = 'h%d' % (level+1)

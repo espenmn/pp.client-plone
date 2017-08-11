@@ -4,11 +4,27 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     >
 
+    <browser:page
+        name="pp-client-plone-settings"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.PPClientPloneSettingsControlPanel"
+        permission="cmf.ManagePortal"
+    />
+
+    <browser:page
+        name="pp-client-plone-connection-test"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".controlpanel.ConnectionTest"
+        attribute="connection_test"
+        permission="cmf.ManagePortal"
+    />
+
     <!-- docx importer -->
 
     <browser:page
         name="docx-import-form"
         for="Products.ATContentTypes.interface.folder.IATFolder"
+        layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
         permission="cmf.ModifyPortalContent"
         class=".docx_importer.DocxImporter"
         template="docx_import.pt"
@@ -17,6 +33,7 @@
     <browser:page
         name="docx-import"
         for="Products.ATContentTypes.interface.folder.IATFolder"
+        layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
         permission="cmf.ModifyPortalContent"
         class=".docx_importer.DocxImporter"
         attribute="docx_import"
@@ -25,6 +42,7 @@
     <browser:page
         name="docx-view"
         for="Products.ATContentTypes.interface.folder.IATFolder"
+        layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
         permission="cmf.ModifyPortalContent"
         class=".docx_importer.DocxImporter"
         template="docx_view.pt"
@@ -33,28 +51,15 @@
     <browser:page
       name="asHTML"
       for="Products.ATContentTypes.interface.folder.IATFolder"
+      layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
       permission="zope2.View"
       class=".types.folder.HTMLView"
       />
 
     <browser:page
-      name="asHTML"
-      for="bda.plone.shop.interfaces.IBuyable"
-      permission="zope2.View"
-      class=".types.buyable.HTMLView"
-      />
-      
-
-    <browser:page
-      name="asHTML"
-      for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-      permission="zope2.View"
-      class=".types.order.HTMLView"
-      />
-
-    <browser:page
       zcml:condition="installed plone.dexterity"
       name="asHTML"
+      layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
       for="plone.dexterity.interfaces.IDexterityContainer"
       permission="zope2.View"
       class=".types.folder.HTMLView"
@@ -62,6 +67,7 @@
 
     <browser:page
       name="asHTML"
+      layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
       for="Products.ATContentTypes.interface.document.IATDocument"
       permission="zope2.View"
       class=".types.document.HTMLView"
@@ -69,6 +75,7 @@
 
     <browser:page
       name="asHTML"
+      layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
       for="Products.ATContentTypes.interface.news.IATNewsItem"
       permission="zope2.View"
       class=".types.newsitem.HTMLView"
@@ -76,7 +83,8 @@
 
     <browser:page
       name="asHTML"
-      for="Products.ATContentTypes.interface.image.IATImage"
+      layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
+      for="Products.ATContentTypes.interface.topic.IATTopic"
       permission="zope2.View"
       class=".types.image.HTMLView"
       />
@@ -84,6 +92,7 @@
     <browser:page
       name="asHTML"
       for="plone.app.collection.interfaces.ICollection"
+      layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
       permission="zope2.View"
       class=".types.topic.HTMLView"
       />
@@ -91,12 +100,12 @@
     <browser:page
       zcml:condition="installed Products.PloneGlossary"
       name="asHTML"
+      layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
       for="Products.PloneGlossary.interfaces.IPloneGlossary"
       permission="zope2.View"
       class=".types.glossary.GlossaryHTMLView"
       />
 
-      
     <!-- a generic Dexterity view catching all Dexterity
          content since TTW-generated Dexterity content
          don't have specific interfaces.
@@ -105,19 +114,23 @@
     <browser:page
       zcml:condition="installed plone.dexterity"
       name="asHTML"
+      layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
       for="plone.dexterity.interfaces.IDexterityContent"
       permission="zope2.View"
       class=".types.dexterity.DexterityGenericView"
       />
-      
-      
-      
 
     <browser:page
       name="asPDF"
       for="*"
+      layer="pp.client.plone.interfaces.IPloneClientConnectorLayer"            
       permission="zope2.View"
       class=".pdf.PDFDownloadView"
+    />
+
+    <browser:resourceDirectory
+        name="pp.client.plone"
+        directory="resources"
     />
 
 </configure>

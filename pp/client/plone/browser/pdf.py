@@ -4,30 +4,32 @@
 ################################################################
 
 import os
+import furl
+import fs.zipfs
 import codecs
 import shutil
 import tempfile
+import requests
 import zipfile
 
 from compatible import InitializeClass
+from plone.registry.interfaces import IRegistry
 from Products.Five.browser import BrowserView
 from Products.ATContentTypes.interface.folder import IATFolder
 from ZPublisher.Iterators import filestream_iterator
-from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile 
+from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 from zope.pagetemplate.pagetemplatefile import PageTemplate
+from zope.component import getUtility
 
 from pp.client.plone.logger import LOG
 from pp.core.transformation import Transformer
-from pp.core.resources_registry import resources_registry
+from pp.core.resources_registry import getResource
 
+from pp.client.plone.interfaces import IPPClientPloneSettings
 from util import getLanguageForObject
 
 cwd = os.path.dirname(os.path.abspath(__file__))
 
-# server host/port of the SmartPrintNG server
-DEFAULT_CONVERTER = os.environ.get('PP_CONVERTER', 'phantomjs')
-DEFAULT_RESOURCE = os.environ.get('PP_RESOURCE', 'pp-default')
-SERVER_URL = os.environ.get('PP_SERVER_URL', 'http://localhost:6543')
 ZIP_OUTPUT = 'PP_ZIP_OUTPUT' in os.environ
 
 
@@ -53,17 +55,38 @@ class ProducePublishView(BrowserView):
 
     @property
     def resource(self):
-        resource_id = self.request.get('resource', DEFAULT_RESOURCE)
-        if not resource_id in resources_registry:
+        resource_id = self.request.get('resource', 'pp-default')
+        try:
+            return getResource(resource_id)
+        except KeyError:
             raise KeyError(u'No resource "{}" registered'.format(resource_id))
-        return resources_registry[resource_id]
 
-    def copyResourceFiles(self, destdir):
-        """ Copy over resources for a global or local resources directory into the 
+
+    def copyResourceFromURL(self, url, destdir):
+        """ Copy over resources for a global or local resources directory into the
             destination directory.
         """
 
-        fslayer = self.resource.fslayer
+        result = requests.get(url)
+        if not result.ok:
+            raise RuntimeError('Unable to retrieve resource by URL {0}'.format(url))
+
+        zip_out = tempfile.mktemp(suffix='.zip')
+        with open(zip_out, 'w') as fp:
+            fp.write(result.content)
+
+        fslayer = fs.zipfs.ZipFS(zip_out, 'r')
+        self.copyResourceFiles(destdir, fslayer)
+        os.unlink(zip_out)
+
+    def copyResourceFiles(self, destdir, fslayer=None):
+        """ Copy over resources for a global or local resources directory into the
+            destination directory.
+        """
+
+        if not fslayer:
+            fslayer = self.resource.fslayer
+
         for dirname, filenames in fslayer.walk():
             for filename in filenames:
                 fullpath = os.path.join(dirname, filename)
@@ -74,7 +97,7 @@ class ProducePublishView(BrowserView):
                     fullpath = fullpath[1:]
                 destpath = os.path.join(destdir, fullpath)
                 if not os.path.exists(os.path.dirname(destpath)):
-                    os.makedirs(os.path(dirname))
+                    os.makedirs(os.path.dirname(destpath))
                 with open(destpath, 'wb') as fp:
                     fp.write(content)
 
@@ -92,8 +115,8 @@ class ProducePublishView(BrowserView):
             else:
                 transformations = t_from_request
 
-        T = Transformer(transformations, 
-                        context=self.context, 
+        T = Transformer(transformations,
+                        context=self.context,
                         destdir=destdir)
         return T(html)
 
@@ -113,8 +136,10 @@ class ProducePublishView(BrowserView):
             'converter' - default to on the converters registered with
                           zopyx.convert2 (default: pdf-prince)
             'resource' - the name of a registered resource (directory)
+            'resource_url' - a URL referencing a ZIPped resource archive
             'template' - the name of a custom template name within the choosen
-                         'resource' 
+                         'resource'
+            'supplementary_css' - a CSS string injected into the template
         """
 
         # Output directory
@@ -137,36 +162,46 @@ class ProducePublishView(BrowserView):
         # this will return either a HTML fragment for a single document or @@asHTML
         # might be defined as an aggregator for a bunch of documents (e.g. if the
         # top-level is a folderish object
-        html_view = self.context.restrictedTraverse('@@asHTML', None)
+        html_view = self.context.restrictedTraverse('@@asXML', None)
         if not html_view:
-            raise RuntimeError('Object at does not provide @@asHTML view (%s, %s)' % 
-                               (self.context.absolute_url(1), self.context.portal_type))
+            html_view = self.context.restrictedTraverse('@@asHTML', None)
+            if not html_view:
+                raise RuntimeError('Object neither provides @@asHTML or @@asXML views (%s, %s)' %
+                                   (self.context.absolute_url(1), self.context.portal_type))
         html_fragment = html_view()
 
         # arbitrary application data
         data = params.get('data', None)
 
+        resource_id = self.request.get('resource', 'pp-default')
+        resource_url = self.request.get('resource_url')
+
+        if resource_url:
+            self.copyResourceFromURL(resource_url, destdir)
+        else:
+            self.copyResourceFiles(destdir)
+
         template_id = params.get('template', 'pdf_template.pt')
-        if not self.resource.fslayer.exists(template_id):
-            raise IOError('Resource does not contain template file {}'.format(template_id))
         template = PageTemplate()
-        with self.resource.fslayer.open(template_id, 'rb') as fp:
+        if not os.path.exists(os.path.join(destdir, template_id)):
+            raise IOError('Resource does not contain template file {}'.format(template_id))
+        with open(os.path.join(destdir, template_id), 'rb') as fp:
             template.write(fp.read())
 
-        # copy resource files
-        self.copyResourceFiles(destdir)
-
         # Now render the complete HTML document
+        supplementary_css = params.get('supplementary_css', None)
         html = template(self,
                         context=self.context,
                         request=self.request,
                         language=language,
                         body=html_fragment,
+                        supplementary_css=supplementary_css,
                         data=data,
                         )
 
         # and apply transformations
-        html = self.transformHtml(html, destdir)
+        transformations = params.get('transformations', self.transformations)
+        html = self.transformHtml(html, destdir, transformations)
 
         # and store it in a dedicated working directory
         dest_filename = os.path.join(destdir, 'index.html')
@@ -177,7 +212,7 @@ class ProducePublishView(BrowserView):
         # basically for debugging purposes only.
         if ZIP_OUTPUT or 'zip_output' in params:
             archivename = tempfile.mktemp(suffix='.zip')
-            fp = zipfile.ZipFile(archivename, "w", zipfile.ZIP_DEFLATED) 
+            fp = zipfile.ZipFile(archivename, "w", zipfile.ZIP_DEFLATED)
             for root, dirs, files in os.walk(destdir):
                 for fn in files:
                     absfn = os.path.join(root, fn)
@@ -189,14 +224,29 @@ class ProducePublishView(BrowserView):
         if 'no_conversion' in params:
             return destdir
 
-        converter = params.get('converter', DEFAULT_CONVERTER)
-        
+        converter = params.get('converter', 'pdfreactor8')
+
         # Produce & Publish server integration
+
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IPPClientPloneSettings)
+
+        r = furl.furl(settings.server_url)
+        if settings.server_username:
+            r.username = settings.server_username
+        if settings.server_password:
+            r.password = settings.server_password
+        server_url = str(r)
+
         from pp.client.python import pdf
-        result = pdf.pdf(destdir, converter, server_url=SERVER_URL)
-        output_filename = result['output_filename']
-        LOG.info('Output file: %s' % output_filename)
-        return output_filename
+        result = pdf.pdf(destdir, converter, server_url=server_url, ssl_cert_verification=True)
+        if result['status']  == 'OK':
+            output_filename = result['output_filename']
+            LOG.info('Output file: %s' % output_filename)
+            return output_filename
+        else:
+            LOG.error('Conversion failed ({})'.format(result['output']))
+            raise RuntimeError(result['output'])
 
 InitializeClass(ProducePublishView)
 
@@ -208,7 +258,7 @@ class PDFDownloadView(ProducePublishView):
         mimetype = os.path.splitext(os.path.basename(output_file))[1]
         R = self.request.response
         R.setHeader('content-type', 'application/%s' % mimetype)
-        R.setHeader('content-disposition', 'attachment; filename="%s.%s"' % (self.context.getId(), mimetype))
+        R.setHeader('content-disposition', 'attachment; filename="%s%s"' % (self.context.getId(), mimetype))
         R.setHeader('pragma', 'no-cache')
         R.setHeader('cache-control', 'no-cache')
         R.setHeader('Expires', 'Fri, 30 Oct 1998 14:19:41 GMT')

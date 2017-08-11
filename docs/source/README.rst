@@ -10,6 +10,12 @@ The Produce & Publish Plone Client connector integrates the Plone
 CMS with the Produce & Publishing platform and supports the
 generation of PDF (requires other external PDF converters).
 
+Requirements
+------------
+
+- Plone 5.1
+- use pp.client.plone 0.3.X for Plone 4 support
+
 Documentation
 -------------
 
@@ -31,7 +37,7 @@ Published under the GNU Public Licence Version 2 (GPL 2)
 
 Author
 ------
-| ZOPYX Limited
+| Andreas Jung/ZOPYX
 | Hundskapfklinge 33
 | D-72074 Tuebingen, Germany
 | info@zopyx.com

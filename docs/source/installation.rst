@@ -13,20 +13,9 @@ zc.buildout.
 
 - restart Zope/Plone
 
-- When running the Produce & Publish server on a different server, you must
-  adjust the ``PP_SERVER`` environment variables within your *.bashrc* file (or
-  a similar file) or you put those variables into your buildout configuration
-  using the *<environment>* section.  Username and password are only needed
-  when you run the Produce & Publish server behind a reverse proxy (requiring
-  authentcation)::
-
-    export PP_SERVER=http://user:password@your.server:6543/api/1
-
-  or::
-
-    <environment>
-        PP_SERVER=http://user:password@your.server:6543/api/1
-    </environment>
+- configure url, username and password of the server through the
+  ``Produce & Publish server`` configuration option within the Plone site setup.
+   
 
 .. note:: This version of the Produce & Publish Plone Client Connector
     requires an installation of the new ``pp.server`` Produce & Publish Server.
@@ -107,7 +96,7 @@ certain aspects of the PDF conversion:
 Miscellaneous
 ~~~~~~~~~~~~~
 
-The environment varialble ``PP_ZIP_OUTPUT`` can be set to export
+The environment variable ``PP_ZIP_OUTPUT`` can be set to export
 all resources used for the conversion into a ZIP file for debugging purposes.
 The path of the generated ZIP file is logged within the standard Zope/Plone
 logfile (or the console if Plone is running in foreground).

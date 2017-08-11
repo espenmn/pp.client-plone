@@ -5,9 +5,16 @@
 
 import lxml.html
 
-def getLanguageForObject(obj):
+import zope.component
 
-    language = obj.portal_languages.getDefaultLanguage()
+
+def getLanguageForObject(obj):
+        
+    # Plone 5
+    from plone.i18n.interfaces import ILanguageUtility
+    util = zope.component.getUtility(ILanguageUtility)
+    language = util.getDefaultLanguage()
+
     obj_language = None
     try:
         obj_language = obj.Language()

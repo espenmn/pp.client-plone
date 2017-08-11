@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.1.9'
+version = '0.4.4'
 
 setup(name='pp.client-plone',
       version=version,
@@ -13,6 +13,7 @@ setup(name='pp.client-plone',
         "Programming Language :: Python",
         "Framework :: Plone",
         "Framework :: Plone :: 4.3",
+        "Framework :: Plone :: 5.0",
         "Framework :: Zope2",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
@@ -35,7 +36,8 @@ setup(name='pp.client-plone',
           'pp.client-python',
           'pp.core',
           'archetypes.schemaextender',
-          'unittest2'
+          'unittest2',
+          'furl',
           # -*- Extra requirements: -*-
       ],
       tests_require=['zope.testing'],

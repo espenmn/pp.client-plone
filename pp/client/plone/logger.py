@@ -3,6 +3,8 @@
 # (C) 2013,  ZOPYX Limited, D-72074 Tuebingen, Germany
 ################################################################
 
-from logging import getLogger
+#from logging import getLogger
 
-LOG = getLogger('pp.client-plone')
+#LOG = getLogger('pp.client-plone')
+
+from pp.core.logger import LOG

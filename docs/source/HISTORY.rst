@@ -1,6 +1,88 @@
 Changelog
 =========
 
+0.4.4  (2017-02-19)
+-------------------
+- support for fetching resources by URL
+
+0.4.3  (2017-02-18)
+-------------------
+- limited support for Dexterity images
+
+0.4.2  (2017-02-16)
+-------------------
+- support for supplementary_css parameter
+
+0.4.1  (2017-02-13)
+-------------------
+- enabled cert validation by default
+
+0.4.0  (2016-12-04)
+-------------------
+- compatibility with Plone 5.0/5.1 and Archetypes content
+
+
+0.3.9 (2016-04-26)
+------------------
+- wording
+
+0.3.8 (2015-11-19)
+------------------
+- CSS for Plone 5 control panel included
+
+0.3.7 (2015-11-18)
+------------------
+- Documentation updated
+
+0.3.5 (2015-11-18)
+------------------
+- Plone 5 compatibility
+
+0.3.4. (2015-04-23)
+-------------------
+- merged https://bitbucket.org/ajung/pp.client-plone/pull-request/4/
+
+0.3.3 (2015-02-18)
+------------------
+- added "Test connection" button to P&P control panel
+
+0.3.2 (2015-02-05)
+------------------
+- fixed issue with suffix of download filename
+
+0.3.1 (2015-01-26)
+------------------
+- username/password are no longer mandatory
+
+0.3.0 (2015-01-19)
+------------------
+- better integration with XML Director project
+- controlpanel for PP server settings
+- webservice settings are now being persisted
+  per Plone instance instead of per Zope installation
+- updated documentation
+
+0.2.5 (2014-11-17)
+------------------
+- minor fix
+
+0.2.3 (24-03-2014)
+------------------
+- typo in fonts.css fixed
+
+0.2.2 (24-10-2013)
+------------------
+- reorganized directory layout
+- fixed issues with nested resource directories
+  in copyResources()  
+
+0.2.1 (06-10-2013)
+------------------
+- added browser layer
+
+0.2.0 (03-10-2013)
+------------------
+- updated documentation 
 
 0.1.9 (30-09-2013)
 ------------------

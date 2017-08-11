@@ -8,7 +8,7 @@ Image resolver
 """
 
 from urllib2 import unquote, Request, urlopen, HTTPError
-from urlparse import urlparse 
+from urlparse import urlparse
 from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.interfaces import IATImage
 from Products.Archetypes.Field import Image
@@ -21,7 +21,7 @@ except ImportError:
 
 
 def resolveImage(context, src):
-    """ Try to resolve an image based on its src which 
+    """ Try to resolve an image based on its src which
         can be a relative URL, an absolute URL or an URL
         using UIDs. Image scales can be annotated through
         image_<scale> or using the newer plone.app.imaging
@@ -30,7 +30,6 @@ def resolveImage(context, src):
 
     if context is None:
         context = getSite()
-    ref_catalog = getToolByName(context, 'reference_catalog')
     parse_result = urlparse(unquote(src))
     path = str(parse_result.path)
     img_obj = None
@@ -38,10 +37,11 @@ def resolveImage(context, src):
     if path.startswith('resolveuid'):
         # can be resolveuid/<uid>/@@images/image/preview
         path_parts = path.split('/')
+        ref_catalog = getToolByName(context, 'reference_catalog')
         img_obj = ref_catalog.lookupObject(path_parts[1])
     else:
 
-        candidates = [path, path[1:]] # with and without leading '/' 
+        candidates = [path, path[1:]] # with and without leading '/'
         # check for a possible URL redirection
         if src.startswith('http'):
             req = Request(src)
@@ -49,9 +49,9 @@ def resolveImage(context, src):
             try:
                 result = urlopen(req)
             except HTTPError:
-                result = None 
+                result = None
 
-            if result and result.url != src: 
+            if result and result.url != src:
                 # a redirection happened
                 parse_result2 = urlparse(unquote(result.url))
                 path2 = str(parse_result2.path)
