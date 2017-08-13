@@ -190,7 +190,8 @@ class ProducePublishView(BrowserView):
 
         if cover:
             cmdoptions += " --remove-first-image --cover=%s" % cover
-            cmdoptions += " --level1-toc=//h:h1 --level2-toc=//h:h2  --level3-toc=//h:h3"
+            cmdoptions  += " --level1-toc=//h:h1 --level2-toc=//h:h2  --level3-toc=//h:h3"
+            cmdoptions += " --language=%" % language
 
         if resource_url:
             self.copyResourceFromURL(resource_url, destdir)
@@ -259,7 +260,7 @@ class ProducePublishView(BrowserView):
         #import pdb; pdb.set_trace()
 
         #result = pdf.pdf(destdir, converter, server_url=server_url, ssl_cert_verification=True, cover=cover)
-        result = pdf.pdf(destdir, converter, server_url=server_url, language=language, ssl_cert_verification=True, cmd_options=cmdoptions)
+        result = pdf.pdf(destdir, converter, server_url=server_url, ssl_cert_verification=True, cmd_options=cmdoptions)
         if result['status']  == 'OK':
             output_filename = result['output_filename']
             LOG.info('Output file: %s' % output_filename)
