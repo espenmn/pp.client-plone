@@ -188,8 +188,6 @@ class ProducePublishView(BrowserView):
 
         cover = self.request.get('cover', '')
         
-        import pdb; pdb.set_trace()
-
         if cover:
             cmdoptions += " --remove-first-image --cover=%s" % cover
             cmdoptions += " --level1-toc=//h:h1 --level2-toc=//h:h2  --level3-toc=//h:h3"
