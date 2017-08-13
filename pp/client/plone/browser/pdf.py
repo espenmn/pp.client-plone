@@ -190,6 +190,7 @@ class ProducePublishView(BrowserView):
 
         if cover:
             cmdoptions += " --remove-first-image --cover=%s" % cover
+            cmdoption += " --level1-toc=//h:h1 --level2-toc=//h:h2  --level3-toc=//h:h3"
 
         if resource_url:
             self.copyResourceFromURL(resource_url, destdir)
